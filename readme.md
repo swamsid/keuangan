@@ -1,6 +1,6 @@
 # Swamsid/Keuangan
 
-![GitHub Release Date](https://img.shields.io/github/release-date/SubtitleEdit/subtitleedit.svg)
+![GitHub Release Date](https://img.shields.io/github/release-date/swamsid/keuangan.svg)
 ![GitHub issues](https://img.shields.io/github/issues/swamsid/keuangan.svg)
 
 Laravel Package Untuk Modul Keuangan Software-software di Alamraya.
