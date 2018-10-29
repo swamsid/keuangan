@@ -1,0 +1,19 @@
+{
+    "name": "swamsid/keuangan",
+    "description": "dev",
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dirga",
+            "email": "swamsid@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "swamsid\\Keuangan": "src/"
+        }
+    }
+}
