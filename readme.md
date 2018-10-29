@@ -13,16 +13,17 @@ jangan Lupa Untuk Membaca Instruksi Ini Dengan Seksama dan Perlahan-lahan.
 
 Install Modul Ini Menggunakan Composer.
 
-```
+```bash
 composer require swamsid/keuangan
 ```
 
 Registrasi Provider di config/app.
 
-```
-#  'providers' => [
-		# ...
-		Swamsid\Keuangan\KeuanganServiceProvider::class;
-		# ...
+```bash
+#   'providers' => [
+		#...
+			Swamsid\Keuangan\KeuanganServiceProvider::class,
+		#...
 #	];
+	
 ```
