@@ -20,8 +20,6 @@ composer require swamsid/keuangan
 Registrasi Provider di config/app.
 
 ```bash
-#   'providers' => [
-		Swamsid\Keuangan\KeuanganServiceProvider::class,
-#	];
+Swamsid\Keuangan\KeuanganServiceProvider::class,
 	
 ```
