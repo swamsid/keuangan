@@ -1,6 +1,6 @@
 {
     "name": "swamsid/keuangan",
-    "description": "dev",
+    "description": "Package Laravel Untuk Modul Keuangan Di Aplikasi-Aplikasi Alamraya.",
     "type": "laravel",
     "license": "MIT",
     "authors": [
