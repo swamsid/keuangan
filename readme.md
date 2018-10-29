@@ -11,13 +11,13 @@ jangan Lupa Untuk Membaca Instruksi Ini Dengan Seksama dan Perlahan-lahan.
 
 ### Installing
 
-Install Modul Ini Menggunakan Composer.
+- Install Modul Ini Menggunakan Composer.
 
 ```bash
 composer require swamsid/keuangan
 ```
 
-Registrasi Provider di config/app.
+- Registrasi Provider di config/app.
 
 ```bash
 Swamsid\Keuangan\KeuanganServiceProvider::class,
