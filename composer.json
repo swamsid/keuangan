@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "swamsid\\Keuangan": "src/"
+            "swamsid\\Keuangan\\": "src/"
         }
     }
 }
