@@ -56,4 +56,15 @@ publishing secara otomatis membuat folder/file baru di project anda. Folder/File
 
 Jika publishing anda berhasil, maka seharusnya project anda akan memiliki folder tersebut dan semua file didalamnya. karena Ini Adalah 'full resource package' tentu anda dapat mengedit semuanya sesuai kebutuhan anda.
 
+### Database Migration
+Fitur keuangan memiliki beberapa table database yang mungkin belum anda miliki, Sehingga anda perlu membuat Migration database dari Folder **database\migrations\swamsid-keuangan** yang tadi secara otomatis terbuat.
 
+*Jika anda hanya ingin melakukan migration di file migration untuk fitur keuangan saja, lakukan ini. (direkomendasikan)*
+```bash
+php artisan migrate:refresh --path=database/migrations/swamsid-keuangan
+```
+
+*Atau Jika anda ingin melakukan migration di Semua file migration Anda, lakukan ini. (tidak direkomendasikan)*
+```bash
+php artisan migrate:refresh
+```
