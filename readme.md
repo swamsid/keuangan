@@ -54,7 +54,7 @@ publishing secara otomatis membuat folder/file baru di project anda. Folder/File
 * **database\migrations\swamsid-keuangan** - *file ini berisi semua Migration dari table-table yang ada di fitur-fitur keuangan*
 * **resources\views\keuangan** - *file ini berisi semua view yang digunakan di fitur-fitur keuangan*
 
-**Jika publishing anda berhasil, maka seharusnya project anda akan memiliki folder tersebut dan semua file didalamnya. karena Ini Adalah 'full resource package' tentu anda dapat mengedit semuanya sesuai kebutuhan anda.**
+Jika publishing anda berhasil, maka seharusnya project anda akan memiliki folder tersebut dan semua file didalamnya. karena Ini Adalah 'full resource package' tentu anda dapat mengedit semuanya sesuai kebutuhan anda.
 
 ### Database Migration
 Fitur keuangan memiliki beberapa table database yang mungkin belum anda miliki, Sehingga anda perlu membuat Migration database dari Folder **database\migrations\swamsid-keuangan** yang tadi secara otomatis terbuat.
