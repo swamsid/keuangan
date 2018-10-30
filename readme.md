@@ -72,3 +72,8 @@ php artisan migrate:refresh
 Package ini memerlukan routes yang akan dapat dipanggil dan terhubung langsung controller-controller yang ada. Anda Bisa Melihatnya melalui link dibawah ini. 
 
 * [Route](https://docs.google.com/document/d/1pJ9SJi7ZSvH_qpoaDEf-mQ6YRg4COojfPHqasISEL7U/edit?usp=sharing) - Copy dan Paste-kan di File Route Project Anda
+
+## Selesai
+Lakukan uji coba dengan memanggil salah satu route yang tadi anda copy, apabila tidak ada pesan error, maka package ini siap anda gunakan. Pastikan anda mengecek sekali lagi apabila ingin merubah baris code di package ini.
+
+### Terima Kasih ...
