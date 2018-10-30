@@ -68,3 +68,7 @@ php artisan migrate:refresh --path=database/migrations/swamsid-keuangan
 ```bash
 php artisan migrate:refresh
 ```
+### Routing
+Package ini memerlukan routes yang akan dapat dipanggil dan terhubung langsung controller-controller yang ada. Anda Bisa Melihatnya melalui link dibawah ini. 
+
+* [Route](https://docs.google.com/document/d/1pJ9SJi7ZSvH_qpoaDEf-mQ6YRg4COojfPHqasISEL7U/edit?usp=sharing) - Copy dan Paste-kan di File Route Project Anda
