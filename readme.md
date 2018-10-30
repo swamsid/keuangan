@@ -31,7 +31,7 @@ Perlu anda ketahui bahwa package ini adalah full resource package. Sehingga keti
 ```bash
 php artisan vendor:publish
 ```
-Lalu, Masukkan Nomor Provider: Swamsid\Keuangan\KeuanganServiceProvider (contoh)
+* **Lalu, Masukkan Nomor Provider: Swamsid\Keuangan\KeuanganServiceProvider (contoh)** *
 ```bash
 Which provider or tag's files would you like to publish?:
   [0] Publish files from all providers and tags listed below
@@ -59,12 +59,12 @@ publishing secara otomatis membuat folder/file baru di project anda. Folder/File
 ### Database Migration
 Fitur keuangan memiliki beberapa table database yang mungkin belum anda miliki, Sehingga anda perlu membuat Migration database dari Folder **database\migrations\swamsid-keuangan** yang tadi secara otomatis terbuat.
 
-*Jika anda hanya ingin melakukan migration di file migration untuk fitur keuangan saja, lakukan ini. (direkomendasikan)*
+* **Jika anda hanya ingin melakukan migration di file migration untuk fitur keuangan saja, lakukan ini. (direkomendasikan)** *
 ```bash
 php artisan migrate:refresh --path=database/migrations/swamsid-keuangan
 ```
 
-*Atau Jika anda ingin melakukan migration di Semua file migration Anda, lakukan ini. (tidak direkomendasikan)*
+* **Atau Jika anda ingin melakukan migration di Semua file migration Anda, lakukan ini. (tidak direkomendasikan)** *
 ```bash
 php artisan migrate:refresh
 ```
