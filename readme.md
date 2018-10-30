@@ -49,10 +49,10 @@ Which provider or tag's files would you like to publish?:
 
 publishing secara otomatis membuat folder/file baru di project anda. Folder/File tersebut adalah : 
 
-	- app\Http\Controllers\Keuangan  (file ini berisi semua controller dari fitur-fitur keuangan)
-	- app\Model\keuangan  (file ini berisi semua Model dari fitur-fitur keuangan)
-	- database\migrations\swamsid-keuangan  (file ini berisi semua Migration dari table-table yang ada di fitur-fitur keuangan)
-	- resources\views\keuangan  (file ini berisi semua view yang digunakan di fitur-fitur keuangan)
+- app\Http\Controllers\Keuangan  (file ini berisi semua controller dari fitur-fitur keuangan)
+- app\Model\keuangan  (file ini berisi semua Model dari fitur-fitur keuangan)
+- database\migrations\swamsid-keuangan  (file ini berisi semua Migration dari table-table yang ada di fitur-fitur keuangan)
+- resources\views\keuangan  (file ini berisi semua view yang digunakan di fitur-fitur keuangan)
 
 Jika publishing anda berhasil, maka seharusnya project anda akan memiliki folder tersebut dan semua file didalamnya. karena Ini Adalah 'full resource package' tentu anda dapat mengedit semuanya sesuai kebutuhan anda.
 
