@@ -59,7 +59,7 @@ publishing secara otomatis membuat folder/file baru di project anda. Folder/File
 ### Database Migration
 Fitur keuangan memiliki beberapa table database yang mungkin belum anda miliki, Sehingga anda perlu membuat Migration database dari Folder **database\migrations\swamsid-keuangan** yang tadi secara otomatis terbuat.
 
-**Jika anda hanya ingin melakukan migration di file migration untuk fitur keuangan saja, lakukan ini. (direkomendasikan)**
+**Jika anda hanya ingin melakukan migration untuk fitur keuangan saja, lakukan ini. (direkomendasikan)**
 ```bash
 php artisan migrate:refresh --path=database/migrations/swamsid-keuangan
 ```
