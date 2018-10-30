@@ -11,7 +11,7 @@ jangan Lupa Untuk Membaca Instruksi Ini Dengan Seksama dan Perlahan-lahan.
 
 ### Installing
 
-- Install Modul Ini Menggunakan Composer.
+- Menggunakan Composer.
 
 ```bash
 composer require swamsid/keuangan
@@ -22,4 +22,27 @@ composer require swamsid/keuangan
 ```bash
 Swamsid\Keuangan\KeuanganServiceProvider::class,
 	
+```
+
+### Cara Menggunakan
+Perlu anda ketahui bahwa package ini adalah full resource package. Sehingga ketika anda berhasil menginstall ini, Anda telah memiliki akses penuh terhadap controller, model, bahkan tampilan (view) dari fitur-fitur keuangan yang akan digunakan. Setelah Anda Berhasil Menginstall, lakukan beberapa hal dibawah ini.
+
+- Pertama, publish vendor
+```bash
+php artisan vendor:publish
+```
+Lalu, Masukkan Nomor Provider: Swamsid\Keuangan\KeuanganServiceProvider (contoh)
+```bash
+Which provider or tag's files would you like to publish?:
+  [0] Publish files from all providers and tags listed below
+  [1] Provider: Fideloper\Proxy\TrustedProxyServiceProvider
+  [2] Provider: Illuminate\Mail\MailServiceProvider
+  [3] Provider: Illuminate\Notifications\NotificationServiceProvider
+  [4] Provider: Illuminate\Pagination\PaginationServiceProvider
+  [5] Provider: Laravel\Tinker\TinkerServiceProvider
+  [6] Provider: Swamsid\Keuangan\KeuanganServiceProvider
+  [7] Tag: laravel-mail
+  [8] Tag: laravel-notifications
+  [9] Tag: laravel-pagination
+ > 6
 ```
