@@ -1,11 +1,11 @@
 <?php
 
-namespace Swamsid\Keuangan\Http\Facades;
+namespace Swamsid\Keuangan\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Akun extends Facade {
+class keuangan extends Facade{
 	protected static function getFacadeAccessor(){
-		return 'Akun';
+		return 'keuangan';
 	}
 }
