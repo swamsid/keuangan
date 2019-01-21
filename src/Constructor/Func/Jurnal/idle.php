@@ -6,7 +6,9 @@ use keuangan;
 
 class idle{
 
-	public function addJurnal(Array $detail, String $tanggalTransaksi, String $nomorTransaksi, String $keteranganTransaksi, String $typeTransaksi, String $comp){
+	public function addJurnal(Array $detail, String $tanggalTransaksi, String $nomorTransaksi, String $keteranganTransaksi, String $typeTransaksi, String $comp, $cashflow = false){
+
+		// return json_encode($cashflow);
 
 		$det = []; $num = 1;
 		$id = (DB::table('dk_jurnal')->max('jr_id')) ? (DB::table('dk_jurnal')->max('jr_id') + 1) : 1;
@@ -21,16 +23,29 @@ class idle{
 		]);
 
 		foreach($detail as $key => $akun){
+
+			$jrdt_cashflow = null;
+			$akunCek = DB::table('dk_akun')->where('ak_id', $akun['jrdt_akun'])->select('ak_kelompok')->first();
+
+			if($cashflow){
+				if($akunCek->ak_kelompok != jurnal()->kelompok_kas && $akunCek->ak_kelompok != jurnal()->kelompok_bank)
+					$jrdt_cashflow = 'Y';
+			}
+
 			$det[$key]	= [
 				'jrdt_jurnal'		=> $id,
 				'jrdt_nomor'		=> $num,
 				'jrdt_akun'			=> $akun['jrdt_akun'],
 				'jrdt_value'		=> $akun['jrdt_value'],
-				'jrdt_dk'			=> $akun['jrdt_dk']
+				'jrdt_dk'			=> $akun['jrdt_dk'],
+				'jrdt_cashflow'		=> $jrdt_cashflow,
+				'kelompok'			=> $akunCek->ak_kelompok
 			];
 
 			$num++;
 		}
+
+		return $det;
 
 		DB::table('dk_jurnal_detail')->insert($det);
 

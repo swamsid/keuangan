@@ -9,4 +9,8 @@ class connection{
 		return 'Connected';
 	}
 
+	public function version(){
+		return "dev-master (v1)";
+	}
+
 }

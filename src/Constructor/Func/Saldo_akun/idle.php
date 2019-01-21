@@ -1,6 +1,8 @@
 <?php
 
 namespace Swamsid\Keuangan\Constructor\Func\Saldo_akun;
+
+use App\Model\modul_keuangan\dk_akun as akun;
 use DB;
 
 class idle{
@@ -27,6 +29,182 @@ class idle{
 		}
 
 		DB::table('dk_akun_saldo')->insert($feeder);
+	}
+
+	public function updateAkun(String $akun){
+		$dataAkun = DB::table('dk_akun')->where('ak_id', $akun)->first();
+		$dataSaldo = DB::table('dk_akun_saldo')->where('as_akun', $akun)->get();
+
+		$cekkl = []; $plus = $minus = 0;
+
+		foreach($dataSaldo as $key => $saldo){
+			$dateBefore = date('Y-m-d', strtotime('-1 months', strtotime($saldo->as_periode)));
+			$dataBefore = DB::table('dk_akun_saldo')->where('as_periode', $dateBefore)->where('as_akun', $saldo->as_akun)->first();
+			$SA = ($dataBefore) ? $dataBefore->as_saldo_akhir : 0;
+
+			if($key == 0)
+				$SA = $dataAkun->ak_opening;
+
+			if($dataAkun->ak_posisi == 'D'){
+				$plus = ($saldo->as_mut_kas_debet + $saldo->as_mut_bank_debet + $saldo->as_mut_memorial_debet);
+				$minus = ($saldo->as_mut_kas_kredit + $saldo->as_mut_bank_kredit + $saldo->as_mut_memorial_kredit);
+			}else{
+				$plus = ($saldo->as_mut_kas_kredit + $saldo->as_mut_bank_kredit + $saldo->as_mut_memorial_kredit);
+				$minus = ($saldo->as_mut_kas_debet + $saldo->as_mut_bank_debet + $saldo->as_mut_memorial_debet);
+			}
+
+			$bucket = [
+				'as_saldo_awal' => $SA,
+				'as_saldo_akhir' => $SA + ($plus - $minus),
+			];
+
+			$cekkl[$key] = [
+				'as_saldo_awal' => $SA,
+				'as_saldo_akhir' => $SA + ($plus - $minus),
+				'plus'	=> $plus,
+				'minus'	=> $minus,
+			];
+
+			DB::table('dk_akun_saldo')->where('as_periode', $saldo->as_periode)->where('as_akun', $akun)->update($bucket);
+		}
+
+
+		// return json_encode(DB::table('dk_akun_saldo')->where('as_akun', $akun)->get());
+	}
+
+	public function addNewPeriode(String $periode){
+		// return json_encode($periode);
+
+		$akunBucket = [];
+		$periodeNext = date('Y-m-d', strtotime('+1 months', strtotime($periode)));
+		$periodeLast = date('Y-m-d', strtotime('-1 months', strtotime($periode)));
+
+		$akun = akun::select('ak_id', 'ak_opening', 'ak_posisi')
+						->with([
+							'mutasiKasMasuk' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'K')
+												->get();
+								})
+								->where('jrdt_dk', 'D')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+							'mutasiKasKeluar' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'K')
+												->get();
+								})
+								->where('jrdt_dk', 'K')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+							'mutasiBankMasuk' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'B')
+												->get();
+								})
+								->where('jrdt_dk', 'D')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+							'mutasiBankKeluar' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'B')
+												->get();
+								})
+								->where('jrdt_dk', 'K')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+							'mutasiMemorialDebet' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'M')
+												->get();
+								})
+								->where('jrdt_dk', 'D')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+							'mutasiMemorialKredit' => function($query) use ($periode, $periodeNext){
+								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){
+									$query->select('jr_id')
+												->from('dk_jurnal')
+												->where('jr_tanggal_trans', '>=', $periode)
+												->where('jr_tanggal_trans', '<', $periodeNext)
+												->where(DB::raw('SUBSTR(jr_type, 1, 1)'), 'M')
+												->get();
+								})
+								->where('jrdt_dk', 'K')
+								->select('jrdt_akun', DB::raw('sum(jrdt_value) as jrdt_value'))
+								->groupBy('jrdt_akun')->get();
+							},
+						])
+						->where('ak_type', 'detail')
+						->get();
+
+						// return json_encode($akun);
+
+		foreach($akun as $key => $dataAkun){
+			
+			$SA = $dataAkun->ak_opening;
+			$cek = DB::table('dk_akun_saldo')->where('as_periode', $periodeLast)->where('as_akun', $dataAkun->ak_id)->first();
+
+			if($cek){
+				$SA = $cek->as_saldo_akhir;
+			}
+
+			$KM = (count($dataAkun->mutasiKasMasuk)) ? $dataAkun->mutasiKasMasuk[0]->jrdt_value : 0;
+			$KK = (count($dataAkun->mutasiKasKeluar)) ? $dataAkun->mutasiKasKeluar[0]->jrdt_value : 0;
+			$BM = (count($dataAkun->mutasiBankMasuk)) ? $dataAkun->mutasiBankMasuk[0]->jrdt_value : 0;
+			$BK = (count($dataAkun->mutasiBankKeluar)) ? $dataAkun->mutasiBankKeluar[0]->jrdt_value : 0;
+			$MD = (count($dataAkun->mutasiMemorialDebet)) ? $dataAkun->mutasiMemorialDebet[0]->jrdt_value : 0;
+			$MK = (count($dataAkun->mutasiMemorialKredit)) ? $dataAkun->mutasiMemorialKredit[0]->jrdt_value : 0;
+
+			$saldoAkhir = 0;
+
+			if($dataAkun->ak_posisi == 'D')
+				$saldoAkhir = $SA + (($KM + $BM + $MD) - ($KK + $BK + $MK));
+			else
+				$saldoAkhir = $SA + (($KK + $BK + $MK) - ($KM + $BM + $MD));
+
+			$akunBucket[$key] = [
+				"as_akun"					=> $dataAkun->ak_id,
+				"as_periode"				=> $periode,
+				"as_saldo_awal"				=> $SA,
+				"as_mut_kas_debet"			=> $KM,
+				"as_mut_kas_kredit"			=> $KK,
+				"as_mut_bank_debet"			=> $BM,
+				"as_mut_bank_kredit"		=> $BK,
+				"as_mut_memorial_debet"		=> $MD,
+				"as_mut_memorial_kredit"	=> $MK,
+				"as_saldo_akhir" 			=> $saldoAkhir,
+			];
+		}
+
+		// return json_encode($akunBucket);
+
+		DB::table('dk_akun_saldo')->insert($akunBucket);
 	}
 
 	public function increaseSaldo(Array $detail, String $tanggalTransaksi, String $typeTransaksi){
