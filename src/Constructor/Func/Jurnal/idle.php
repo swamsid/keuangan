@@ -39,13 +39,10 @@ class idle{
 				'jrdt_value'		=> $akun['jrdt_value'],
 				'jrdt_dk'			=> $akun['jrdt_dk'],
 				'jrdt_cashflow'		=> $jrdt_cashflow,
-				'kelompok'			=> $akunCek->ak_kelompok
 			];
 
 			$num++;
 		}
-
-		return $det;
 
 		DB::table('dk_jurnal_detail')->insert($det);
 
