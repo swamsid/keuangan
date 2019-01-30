@@ -27,8 +27,11 @@ class idle{
 			$jrdt_cashflow = null;
 			$akunCek = DB::table('dk_akun')->where('ak_id', $akun['jrdt_akun'])->select('ak_kelompok')->first();
 
+			$kelompok_kas = DB::table('dk_hierarki_penting')->where('hp_id', '4')->first();
+        	$kelompok_bank = DB::table('dk_hierarki_penting')->where('hp_id', '5')->first();
+
 			if($cashflow){
-				if($akunCek->ak_kelompok != jurnal()->kelompok_kas && $akunCek->ak_kelompok != jurnal()->kelompok_bank)
+				if($akunCek->ak_kelompok != $kelompok_kas->hp_hierarki && $akunCek->ak_kelompok != $kelompok_bank->hp_hierarki)
 					$jrdt_cashflow = 'Y';
 			}
 
