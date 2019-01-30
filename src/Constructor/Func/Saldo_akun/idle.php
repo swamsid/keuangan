@@ -160,7 +160,6 @@ class idle{
 								->groupBy('jrdt_akun')->get();
 							},
 						])
-						->where('ak_type', 'detail')
 						->get();
 
 						// return json_encode($akun);
