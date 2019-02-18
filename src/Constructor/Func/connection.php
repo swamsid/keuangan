@@ -10,7 +10,7 @@ class connection{
 	}
 
 	public function version(){
-		return "dev-master (v1)";
+		return "dev-master (v1.01.01) released: 18-02-2019";
 	}
 
 }
