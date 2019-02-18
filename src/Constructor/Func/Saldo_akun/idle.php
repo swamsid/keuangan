@@ -10,7 +10,7 @@ class idle{
 	public function addAkun(String $akun){
 
 		$akun = DB::table('dk_akun')->where('ak_id', $akun)->first();
-		$cek = DB::table('dk_periode_keuangan')->orderBy('pk_periode', 'asc')->get();
+		$cek = DB::table('dk_periode_keuangan')->where('pk_comp', modulSetting()['onLogin'])->orderBy('pk_periode', 'asc')->get();
 		$feeder	= [];
 
 		foreach($cek as $key => $periode){
@@ -80,6 +80,7 @@ class idle{
 		$periodeLast = date('Y-m-d', strtotime('-1 months', strtotime($periode)));
 
 		$akun = akun::select('ak_id', 'ak_opening', 'ak_posisi')
+						->where('ak_comp', modulSetting()['onLogin'])
 						->with([
 							'mutasiKasMasuk' => function($query) use ($periode, $periodeNext){
 								$query->whereIn('jrdt_jurnal', function($query) use ($periode, $periodeNext){

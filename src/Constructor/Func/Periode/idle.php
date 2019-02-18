@@ -10,7 +10,7 @@ class idle{
 	}
 
 	public function emptyData(){
-		$data = DB::table('dk_periode_keuangan')->first();
+		$data = DB::table('dk_periode_keuangan')->where('pk_comp', modulSetting()['onLogin'])->first();
 
 		if(!$data)
 			return true;
@@ -20,7 +20,7 @@ class idle{
 
 	public function missing(){
 		$tanggal = date('Y-m').'-01';
-		$data = DB::table('dk_periode_keuangan')->where('pk_periode', $tanggal)->first();
+		$data = DB::table('dk_periode_keuangan')->where('pk_periode', $tanggal)->where('pk_comp', modulSetting()['onLogin'])->first();
 
 		if(!$data)
 			return true;
