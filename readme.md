@@ -24,7 +24,7 @@ Swamsid\Keuangan\KeuanganServiceProvider::class,
 	
 ```
 
-## Cara Menggunakan
+<!-- ## Cara Menggunakan
 Perlu anda ketahui bahwa package ini adalah full resource package. Sehingga ketika anda berhasil menginstall ini, Anda telah memiliki akses penuh terhadap controller, model, bahkan tampilan (view) dari fitur-fitur keuangan yang akan digunakan. Setelah Anda Berhasil Menginstall, lakukan beberapa hal dibawah ini.
 
 ### Publish vendor
@@ -76,4 +76,4 @@ Package ini memerlukan routes yang akan dapat dipanggil dan terhubung langsung c
 ## Selesai
 Lakukan uji coba dengan memanggil salah satu route yang tadi anda copy, apabila tidak ada pesan error, maka package ini siap anda gunakan. Pastikan anda mengecek sekali lagi apabila ingin merubah baris code di package ini.
 
-### Terima Kasih ...
+### Terima Kasih ... -->
